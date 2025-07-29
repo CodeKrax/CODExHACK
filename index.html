@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Someone's Waiting 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Duggubuggu Romantic 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #0d0d0d;
+      background-color: #000;
       font-family: 'Poppins', sans-serif;
       color: #fff;
       display: flex;
@@ -19,27 +19,22 @@
       min-height: 100vh;
       overflow: hidden;
     }
-
     .container {
       text-align: center;
       padding: 20px;
       max-width: 600px;
     }
-
     .message {
-      font-size: 1.4rem;
-      margin: 20px 0;
+      font-size: 1.5rem;
+      margin: 15px 0;
       opacity: 0;
-      transition: opacity 1s ease, transform 1s ease;
       transform: translateY(20px);
-      text-shadow: 0 0 8px #ffb6d9, 0 0 12px #ffb6d9;
+      transition: all 1s ease;
     }
-
     .visible {
       opacity: 1;
       transform: translateY(0);
     }
-
     .hearts {
       position: fixed;
       top: 0;
@@ -49,7 +44,6 @@
       overflow: hidden;
       z-index: -1;
     }
-
     .heart {
       position: absolute;
       width: 20px;
@@ -58,7 +52,6 @@
       transform: rotate(45deg);
       animation: float 8s infinite ease-in;
     }
-
     .heart::before, .heart::after {
       content: '';
       position: absolute;
@@ -67,113 +60,109 @@
       background-color: pink;
       border-radius: 50%;
     }
-
     .heart::before { top: -10px; left: 0; }
     .heart::after { top: 0; left: -10px; }
-
     @keyframes float {
       0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
       100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
     }
-
-    .share-section {
-      margin-top: 40px;
-    }
-
     .share-btns a {
       display: inline-block;
-      margin: 8px;
-      padding: 10px 18px;
+      margin: 10px;
+      padding: 10px 20px;
       background: #fff;
       color: #111;
-      border-radius: 20px;
+      border-radius: 10px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: bold;
       transition: 0.3s;
     }
-
     .share-btns a:hover {
       background: #ffb6d9;
     }
-
-    input, select {
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin: 5px;
-      font-size: 1rem;
-    }
-
-    button {
-      padding: 10px 20px;
-      border: none;
-      background: #ff85c1;
-      color: #111;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff85c1;
-      font-size: 1rem;
-    }
-
-    #generatedLink a {
-      color: #ffb6d9;
+    .popup {
+      background-color: rgba(255,255,255,0.9);
+      color: #000;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 10;
+      box-shadow: 0 0 20px #ff85c1;
     }
   </style>
 </head>
 <body>
+
 <div class="hearts" id="hearts"></div>
+<div class="popup" id="popup">Awww! You just made someone smile 🥺💖</div>
 <div class="container" id="mainContent"></div>
+<audio id="audio" src="duggubuggu.mp3" preload="auto"></audio>
 
 <script>
   const params = new URLSearchParams(window.location.search);
   const name = params.get("name");
   const type = params.get("type");
+  const audio = document.getElementById("audio");
+
   const main = document.getElementById("mainContent");
 
   if (!name || !type) {
     main.innerHTML = `
-      <h2>Create Your Own 💖</h2>
-      <input type="text" id="inputName" placeholder="Enter their name" />
-      <select id="inputType">
+      <h2 style="color:#ffb6d9;">Enter their cute name 💖</h2>
+      <input type="text" id="inputName" placeholder="e.g. Aisha" style="padding:10px; border-radius:8px; border:none; margin:5px;" />
+      <select id="inputType" style="padding:10px; border-radius:8px; border:none;">
         <option value="girl">Girl</option>
         <option value="boy">Boy</option>
       </select><br><br>
-      <button onclick="generateLink()">Generate Link</button>
+      <button onclick="generateLink()" style="padding:10px 20px; border:none; background:#ff85c1; color:#111; border-radius:20px; font-weight:bold; cursor:pointer;">Generate Link</button>
       <div id="generatedLink" style="margin-top:20px;"></div>
     `;
   } else {
     const messages = type === "girl"
       ? [
-          `Awww ${name} 🥺💖`,
-          `Tumhare bina sab kuch adhoora lagta hai...`,
-          `Sach bolu toh, mujhe tumse dil se pyaar ho gaya hai 💘✨`
+          `Awww ${name}... kitna pyara naam hai 🥺💖`,
+          `Tumhari smile... itni cute lagti hai 😚`,
+          `Main kab se kehna chah raha tha...`,
+          `Mujhe lagta hai main tumse sach mein pyaar karta hoon 💘`
         ]
       : [
-          `Awww ${name} 💗`,
-          `Jab se tum meri life mein aaye ho, sab kuch special lagta hai...`,
-          `Dil keh raha hai tumse kuch khaas kehdu... Mujhe tumse pyaar ho gaya hai 🥹❤️`
+          `Awww ${name}... kya sweet naam hai 💖`,
+          `Tere baare mein roz sochta hoon...`,
+          `Main chahta hoon tu hamesha khush rahe 🥹`,
+          `Mujhe lagta hai main tumse dil se pyaar karne laga hoon 💘`
         ];
 
     main.innerHTML = `
-      <div class="message" id="msg1"></div>
-      <div class="message" id="msg2"></div>
-      <div class="message" id="msg3"></div>
-      <div class="share-section">
+      ${messages.map((m, i) => `<div class="message" id="msg${i}"></div>`).join("")}
+      <div class="share-section" style="margin-top:40px;">
         <h3>💌 Make your own & Share</h3>
         <div class="share-btns">
-          <a href="https://wa.me/?text=${encodeURIComponent("Aww, check this out 💖 https://your-site-url.netlify.app/?name=" + name + "&type=" + type)}" target="_blank">WhatsApp</a>
+          <a href="https://wa.me/?text=${encodeURIComponent("Check this out 💖 https://your-site-url.netlify.app/?name=" + name + "&type=" + type)}" target="_blank">WhatsApp</a>
           <a href="https://www.instagram.com/" target="_blank">Instagram</a>
           <a href="https://www.facebook.com/" target="_blank">Facebook</a>
         </div>
       </div>
     `;
 
+    audio.play().catch(() => {
+      console.log("Autoplay blocked");
+    });
+
     messages.forEach((msg, i) => {
       setTimeout(() => {
-        document.getElementById("msg" + (i + 1)).innerText = msg;
-        document.getElementById("msg" + (i + 1)).classList.add("visible");
-      }, 1800 * (i + 1));
+        document.getElementById("msg" + i).innerText = msg;
+        document.getElementById("msg" + i).classList.add("visible");
+        if (i === messages.length - 1) {
+          setTimeout(() => {
+            document.getElementById("popup").style.display = 'block';
+          }, 2000);
+        }
+      }, 2000 * (i + 1));
     });
   }
 
@@ -183,11 +172,11 @@
     if (!nm) return alert("Enter a name!");
     const link = `${window.location.origin + window.location.pathname}?name=${encodeURIComponent(nm)}&type=${tp}`;
     document.getElementById("generatedLink").innerHTML = `
-      <p style="word-break:break-all;">💘 Share this link:<br><a href="${link}" target="_blank">${link}</a></p>
+      <p>💘 Share this link:<br><a href="${link}" style="color:#ffb6d9;">${link}</a></p>
     `;
   }
 
-  // Generate hearts
+  // Glowing heart generator
   const heartsContainer = document.getElementById("hearts");
   for (let i = 0; i < 30; i++) {
     const heart = document.createElement("div");
