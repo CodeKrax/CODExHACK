@@ -3,105 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Duggubuggu 💖 Chat Reveal</title>
+  <title>Duggubuggu 💖</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+    body {
       background-color: #0d0d0d;
-      font-family: 'Poppins', sans-serif;
       color: #fff;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       min-height: 100vh;
-      padding: 20px;
+      overflow: hidden;
+      text-align: center;
     }
-    .chat-box {
+    .box {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 15px;
-      padding: 20px;
-      width: 100%;
+      padding: 30px;
+      width: 90%;
       max-width: 500px;
       backdrop-filter: blur(8px);
-      box-shadow: 0 0 15px rgba(255, 192, 203, 0.2);
-    }
-    .msg {
-      margin: 10px 0;
-      padding: 12px 18px;
-      border-radius: 20px;
-      display: inline-block;
-      max-width: 80%;
-    }
-    .from-you {
-      background: #ffd6ec;
-      color: #111;
-      align-self: flex-end;
-      border-bottom-right-radius: 0;
-    }
-    .from-them {
-      background: #ffe4f3;
-      color: #111;
-      align-self: flex-start;
-      border-bottom-left-radius: 0;
-    }
-    .button-box {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      box-shadow: 0 0 20px rgba(255, 192, 203, 0.2);
+      position: relative;
+      z-index: 2;
     }
     .glow-btn {
       background: transparent;
       border: 2px solid #ffb6d9;
       color: #ffd1dc;
-      padding: 10px 20px;
+      padding: 10px 25px;
       border-radius: 25px;
       font-size: 1rem;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px #ffb6d9;
+      transition: 0.3s ease;
+      box-shadow: 0 0 12px #ffb6d9;
+      margin-top: 20px;
     }
     .glow-btn:hover {
       background: #ffd1dc;
       color: #111;
     }
-    .hidden {
-      display: none;
+    input[type="text"] {
+      padding: 12px 20px;
+      border-radius: 15px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      margin-top: 10px;
+      width: 80%;
+    }
+    .message {
+      font-size: 1.2rem;
+      margin: 20px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+    .message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .heart {
+      position: absolute;
+      color: #ffb6d9;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+      font-size: 24px;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(1); opacity: 0.7; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
-  <div class="chat-box">
-    <div class="msg from-you">I’ve been holding this in for a while...</div>
-    <div class="msg from-them hidden" id="reply1">What is it? 👀</div>
-    <div class="msg from-you hidden" id="reply2">I think... I really like you 🥺💖</div>
-    <div class="msg from-them hidden" id="reply3">Aww... that’s so sweet 😳</div>
-    <div class="msg from-you hidden" id="finalMsg">You mean a lot to me... more than you know 🫣💗</div>
+  <div class="hearts" id="hearts"></div>
 
-    <div class="button-box" id="buttonBox">
-      <button class="glow-btn" onclick="nextReply(1)">What happens next? 💌</button>
-      <button class="glow-btn" onclick="nextReply(2)">Say it now 😳</button>
-      <button class="glow-btn hidden" id="finalBtn" onclick="nextReply(3)">Open your heart 🎁</button>
-    </div>
+  <div class="box" id="nameBox">
+    <h2>Enter your name 💬</h2>
+    <input type="text" id="nameInput" placeholder="Your name here...">
+    <button class="glow-btn" onclick="start()">Continue 💗</button>
+  </div>
+
+  <div class="box hidden" id="msgBox">
+    <div class="message" id="msg1"></div>
+    <div class="message" id="msg2"></div>
+    <div class="message" id="msg3"></div>
   </div>
 
   <script>
-    let step = 0;
-    function nextReply(replyNumber) {
-      step++;
-      if (step === 1) {
-        document.getElementById('reply1').classList.remove('hidden');
-        document.getElementById('reply2').classList.remove('hidden');
-        document.getElementById('finalBtn').classList.remove('hidden');
+    function createHearts() {
+      const container = document.getElementById("hearts");
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+        heart.style.fontSize = (20 + Math.random() * 20) + "px";
+        container.appendChild(heart);
       }
-      if (step === 2) {
-        document.getElementById('reply3').classList.remove('hidden');
-      }
-      if (step === 3) {
-        document.getElementById('finalMsg').classList.remove('hidden');
-        document.getElementById('buttonBox').style.d
+    }
+
+    function start() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) return;
+      document.getElementById("nameBox").classList.add("hidden");
+      document.getElementById("msgBox").classList.remove("hidden");
+      const msg1 = document.getElementById("msg1");
+      const msg2 = document.getElementById("msg2");
+      const msg3 = document.getElementById("msg3");
+
+      msg1.innerText = `Awww ${name}... kitna pyara naam hai 🥺💖`;
+      msg2.innerText = `Main kab se kehna chah raha tha...`;
+      msg3.innerText = `I think I really like you 🫣💗`;
+
+      setTimeout(() => msg1.classList.add("show"), 500);
+      setTimeout(() => msg2.classList.add("show"), 1800);
+      setTimeout(() => msg3.classList.add("show"), 3200);
+
+      createHearts();
+    }
+  </script>
+
+</body>
+</html>
