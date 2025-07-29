@@ -1,10 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Duggubuggu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>duggubuggu 💘</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffe5ec, #ffd6e0);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #container {
+      max-width: 90%;
+    }
+
+    .typing-text {
+      font-size: 1.6rem;
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #333;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink 0.8s infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      background: #ff5e91;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #finalMessage {
+      display: none;
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #111;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello, I am Duggubuggu!</h1>
-  <p>Welcome to my website deployed with Netlify 🚀</p>
+  <div id="container">
+    <div class="typing-text" id="typeText">I wasn't ready for this... but then I saw you 💭</div>
+
+    <button id="revealBtn" style="display:none;">Reveal Something 💘</button>
+
+    <div id="finalMessage">
+      I really, really like you 🥺👉👈💖
+    </div>
+
+    <audio id="clip1" src="duggu.mp3"></audio>
+    <audio id="clip2" src="buggu.mp3"></audio>
+    <canvas id="confetti-canvas"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // Show button after typing ends
+    setTimeout(() => {
+      document.getElementById("revealBtn").style.display = "inline-block";
+    }, 4500);
+
+    document.getElementById("revealBtn").onclick = function() {
+      // Play clip1, then clip2
+      const clip1 = document.getElementById("clip1");
+      const clip2 = document.getElementById("clip2");
+
+      clip1.play();
+      clip1.onended = () => clip2.play();
+
+      // Show message
+      document.getElementById("finalMessage").style.display = "block";
+
+      // Confetti 🎉
+      const duration = 4 * 1000;
+      const end = Date.now() + duration;
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+
+      this.style.display = "none";
+    };
+  </script>
 </body>
 </html>
+
