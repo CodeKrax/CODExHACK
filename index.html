@@ -3,52 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Duggubuggu Romantic 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <title>Duggubuggu 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    body {
       background-color: #000;
       font-family: 'Poppins', sans-serif;
       color: #fff;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       min-height: 100vh;
-      overflow: hidden;
-    }
-    .container {
       text-align: center;
-      padding: 20px;
-      max-width: 600px;
     }
-    .message {
-      font-size: 1.5rem;
-      margin: 15px 0;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 1s ease;
-    }
-    .visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
     .hearts {
       position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      top: 0; left: 0;
       z-index: -1;
+      overflow: hidden;
     }
     .heart {
       position: absolute;
       width: 20px;
       height: 20px;
-      background-color: pink;
+      background: pink;
       transform: rotate(45deg);
       animation: float 8s infinite ease-in;
     }
@@ -57,134 +45,164 @@
       position: absolute;
       width: 20px;
       height: 20px;
-      background-color: pink;
+      background: pink;
       border-radius: 50%;
     }
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { top: 0; left: -10px; }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
     @keyframes float {
       0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
       100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
     }
-    .share-btns a {
+
+    .start-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+    }
+    input, select, button {
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      background: #ff77b3;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff77b3;
+    }
+    .message {
+      font-size: 1.3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+      margin: 15px 0;
+    }
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #ff77b3;
+      display: none;
+    }
+    .share-buttons a {
       display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
+      margin: 10px 10px 0;
+      padding: 10px 18px;
       background: #fff;
       color: #111;
       border-radius: 10px;
+      font-weight: 600;
       text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .share-btns a:hover {
-      background: #ffb6d9;
-    }
-    .popup {
-      background-color: rgba(255,255,255,0.9);
-      color: #000;
-      padding: 20px;
-      border-radius: 10px;
-      font-size: 1.3rem;
-      position: fixed;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: none;
-      z-index: 10;
-      box-shadow: 0 0 20px #ff85c1;
     }
   </style>
 </head>
 <body>
 
 <div class="hearts" id="hearts"></div>
-<div class="popup" id="popup">Awww! You just made someone smile 🥺💖</div>
-<div class="container" id="mainContent"></div>
-<audio id="audio" src="duggubuggu.mp3" preload="auto"></audio>
+
+<div class="start-screen" id="start">
+  <h2>Enter Their Name 💖</h2>
+  <input type="text" id="inputName" placeholder="Name"/>
+  <select id="inputType">
+    <option value="girl">Girl</option>
+    <option value="boy">Boy</option>
+  </select>
+  <button onclick="startLove()">Start 💌</button>
+</div>
+
+<div id="loveMessages"></div>
+
+<div class="popup" id="popup">
+  <h2>🎉 You just made someone smile 🥺💖</h2>
+  <p class="share-buttons">
+    <a href="https://wa.me/?text=Check%20this%20out!%20💖" target="_blank">WhatsApp</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+    <a href="https://facebook.com/" target="_blank">Facebook</a>
+  </p>
+</div>
+
+<audio id="bgMusic" src="duggubuggu.mp3" autoplay loop></audio>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get("name");
-  const type = params.get("type");
-  const audio = document.getElementById("audio");
+  const startScreen = document.getElementById("start");
+  const loveMessages = document.getElementById("loveMessages");
+  const popup = document.getElementById("popup");
 
-  const main = document.getElementById("mainContent");
+  function startLove() {
+    const name = document.getElementById("inputName").value.trim();
+    const type = document.getElementById("inputType").value;
 
-  if (!name || !type) {
-    main.innerHTML = `
-      <h2 style="color:#ffb6d9;">Enter their cute name 💖</h2>
-      <input type="text" id="inputName" placeholder="e.g. Aisha" style="padding:10px; border-radius:8px; border:none; margin:5px;" />
-      <select id="inputType" style="padding:10px; border-radius:8px; border:none;">
-        <option value="girl">Girl</option>
-        <option value="boy">Boy</option>
-      </select><br><br>
-      <button onclick="generateLink()" style="padding:10px 20px; border:none; background:#ff85c1; color:#111; border-radius:20px; font-weight:bold; cursor:pointer;">Generate Link</button>
-      <div id="generatedLink" style="margin-top:20px;"></div>
-    `;
-  } else {
-    const messages = type === "girl"
+    if (!name) {
+      alert("Please enter a name 💖");
+      return;
+    }
+
+    startScreen.style.display = "none";
+    const msgs = type === "girl"
       ? [
           `Awww ${name}... kitna pyara naam hai 🥺💖`,
-          `Tumhari smile... itni cute lagti hai 😚`,
-          `Main kab se kehna chah raha tha...`,
-          `Mujhe lagta hai main tumse sach mein pyaar karta hoon 💘`
+          "Tumhari smile... dil le gayi 💘",
+          "Main tumse kuch zaroori kehna chahta hoon...",
+          "Shayad main tumse sach mein pyaar karne laga hoon 💖"
         ]
       : [
-          `Awww ${name}... kya sweet naam hai 💖`,
-          `Tere baare mein roz sochta hoon...`,
-          `Main chahta hoon tu hamesha khush rahe 🥹`,
-          `Mujhe lagta hai main tumse dil se pyaar karne laga hoon 💘`
+          `Awww ${name}... kya sweet naam hai 😚`,
+          "Tere baare mein roz sochti hoon...",
+          "Tu hamesha special rahega mere liye 🥹",
+          "Mujhe lagta hai main tumse dil se pyaar karti hoon 💘"
         ];
 
-    main.innerHTML = `
-      ${messages.map((m, i) => `<div class="message" id="msg${i}"></div>`).join("")}
-      <div class="share-section" style="margin-top:40px;">
-        <h3>💌 Make your own & Share</h3>
-        <div class="share-btns">
-          <a href="https://wa.me/?text=${encodeURIComponent("Check this out 💖 https://your-site-url.netlify.app/?name=" + name + "&type=" + type)}" target="_blank">WhatsApp</a>
-          <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-          <a href="https://www.facebook.com/" target="_blank">Facebook</a>
-        </div>
-      </div>
-    `;
-
-    audio.play().catch(() => {
-      console.log("Autoplay blocked");
-    });
-
-    messages.forEach((msg, i) => {
+    msgs.forEach((msg, index) => {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.textContent = msg;
+      loveMessages.appendChild(div);
       setTimeout(() => {
-        document.getElementById("msg" + i).innerText = msg;
-        document.getElementById("msg" + i).classList.add("visible");
-        if (i === messages.length - 1) {
+        div.classList.add("visible");
+        if (index === msgs.length - 1) {
           setTimeout(() => {
-            document.getElementById("popup").style.display = 'block';
+            popup.style.display = "block";
           }, 2000);
         }
-      }, 2000 * (i + 1));
+      }, 2000 * index);
     });
   }
 
-  function generateLink() {
-    const nm = document.getElementById("inputName").value.trim();
-    const tp = document.getElementById("inputType").value;
-    if (!nm) return alert("Enter a name!");
-    const link = `${window.location.origin + window.location.pathname}?name=${encodeURIComponent(nm)}&type=${tp}`;
-    document.getElementById("generatedLink").innerHTML = `
-      <p>💘 Share this link:<br><a href="${link}" style="color:#ffb6d9;">${link}</a></p>
-    `;
-  }
-
-  // Glowing heart generator
+  // Floating hearts
   const heartsContainer = document.getElementById("hearts");
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 40; i++) {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.style.left = Math.random() * 100 + "%";
     heart.style.animationDuration = (5 + Math.random() * 5) + "s";
     heartsContainer.appendChild(heart);
   }
+
+  // Audio fix for mobile (starts on interaction)
+  document.body.addEventListener("click", () => {
+    const audio = document.getElementById("bgMusic");
+    if (audio.paused) audio.play();
+  });
 </script>
+
 </body>
 </html>
