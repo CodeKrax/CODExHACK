@@ -1,149 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Duggubuggu 💖</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Someone's Waiting 💖</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
+    body {
       margin: 0;
       padding: 0;
-    }
-    body {
       background-color: #0d0d0d;
-      color: #fff;
       font-family: 'Poppins', sans-serif;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       min-height: 100vh;
       overflow: hidden;
+    }
+
+    .container {
       text-align: center;
+      padding: 20px;
+      max-width: 600px;
     }
-    .box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 30px;
-      width: 90%;
-      max-width: 500px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 20px rgba(255, 192, 203, 0.2);
-      position: relative;
-      z-index: 2;
-    }
-    .glow-btn {
-      background: transparent;
-      border: 2px solid #ffb6d9;
-      color: #ffd1dc;
-      padding: 10px 25px;
-      border-radius: 25px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.3s ease;
-      box-shadow: 0 0 12px #ffb6d9;
-      margin-top: 20px;
-    }
-    .glow-btn:hover {
-      background: #ffd1dc;
-      color: #111;
-    }
-    input[type="text"] {
-      padding: 12px 20px;
-      border-radius: 15px;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      margin-top: 10px;
-      width: 80%;
-    }
+
     .message {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       margin: 20px 0;
       opacity: 0;
+      transition: opacity 1s ease, transform 1s ease;
       transform: translateY(20px);
-      transition: all 0.8s ease;
+      text-shadow: 0 0 8px #ffb6d9, 0 0 12px #ffb6d9;
     }
-    .message.show {
+
+    .visible {
       opacity: 1;
       transform: translateY(0);
     }
+
     .hearts {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
-      pointer-events: none;
-      z-index: 1;
+      z-index: -1;
     }
+
     .heart {
       position: absolute;
-      color: #ffb6d9;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.7;
-      font-size: 24px;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      transform: rotate(45deg);
+      animation: float 8s infinite ease-in;
     }
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(1); opacity: 0.7; }
-      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { top: 0; left: -10px; }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+
+    .share-section {
+      margin-top: 40px;
+    }
+
+    .share-btns a {
+      display: inline-block;
+      margin: 8px;
+      padding: 10px 18px;
+      background: #fff;
+      color: #111;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .share-btns a:hover {
+      background: #ffb6d9;
+    }
+
+    input, select {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #ff85c1;
+      color: #111;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff85c1;
+      font-size: 1rem;
+    }
+
+    #generatedLink a {
+      color: #ffb6d9;
     }
   </style>
 </head>
 <body>
+<div class="hearts" id="hearts"></div>
+<div class="container" id="mainContent"></div>
 
-  <div class="hearts" id="hearts"></div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name");
+  const type = params.get("type");
+  const main = document.getElementById("mainContent");
 
-  <div class="box" id="nameBox">
-    <h2>Enter your name 💬</h2>
-    <input type="text" id="nameInput" placeholder="Your name here...">
-    <button class="glow-btn" onclick="start()">Continue 💗</button>
-  </div>
+  if (!name || !type) {
+    main.innerHTML = `
+      <h2>Create Your Own 💖</h2>
+      <input type="text" id="inputName" placeholder="Enter their name" />
+      <select id="inputType">
+        <option value="girl">Girl</option>
+        <option value="boy">Boy</option>
+      </select><br><br>
+      <button onclick="generateLink()">Generate Link</button>
+      <div id="generatedLink" style="margin-top:20px;"></div>
+    `;
+  } else {
+    const messages = type === "girl"
+      ? [
+          `Awww ${name} 🥺💖`,
+          `Tumhare bina sab kuch adhoora lagta hai...`,
+          `Sach bolu toh, mujhe tumse dil se pyaar ho gaya hai 💘✨`
+        ]
+      : [
+          `Awww ${name} 💗`,
+          `Jab se tum meri life mein aaye ho, sab kuch special lagta hai...`,
+          `Dil keh raha hai tumse kuch khaas kehdu... Mujhe tumse pyaar ho gaya hai 🥹❤️`
+        ];
 
-  <div class="box hidden" id="msgBox">
-    <div class="message" id="msg1"></div>
-    <div class="message" id="msg2"></div>
-    <div class="message" id="msg3"></div>
-  </div>
+    main.innerHTML = `
+      <div class="message" id="msg1"></div>
+      <div class="message" id="msg2"></div>
+      <div class="message" id="msg3"></div>
+      <div class="share-section">
+        <h3>💌 Make your own & Share</h3>
+        <div class="share-btns">
+          <a href="https://wa.me/?text=${encodeURIComponent("Aww, check this out 💖 https://your-site-url.netlify.app/?name=" + name + "&type=" + type)}" target="_blank">WhatsApp</a>
+          <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+          <a href="https://www.facebook.com/" target="_blank">Facebook</a>
+        </div>
+      </div>
+    `;
 
-  <script>
-    function createHearts() {
-      const container = document.getElementById("hearts");
-      for (let i = 0; i < 30; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.textContent = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-        heart.style.fontSize = (20 + Math.random() * 20) + "px";
-        container.appendChild(heart);
-      }
-    }
+    messages.forEach((msg, i) => {
+      setTimeout(() => {
+        document.getElementById("msg" + (i + 1)).innerText = msg;
+        document.getElementById("msg" + (i + 1)).classList.add("visible");
+      }, 1800 * (i + 1));
+    });
+  }
 
-    function start() {
-      const name = document.getElementById("nameInput").value.trim();
-      if (!name) return;
-      document.getElementById("nameBox").classList.add("hidden");
-      document.getElementById("msgBox").classList.remove("hidden");
-      const msg1 = document.getElementById("msg1");
-      const msg2 = document.getElementById("msg2");
-      const msg3 = document.getElementById("msg3");
+  function generateLink() {
+    const nm = document.getElementById("inputName").value.trim();
+    const tp = document.getElementById("inputType").value;
+    if (!nm) return alert("Enter a name!");
+    const link = `${window.location.origin + window.location.pathname}?name=${encodeURIComponent(nm)}&type=${tp}`;
+    document.getElementById("generatedLink").innerHTML = `
+      <p style="word-break:break-all;">💘 Share this link:<br><a href="${link}" target="_blank">${link}</a></p>
+    `;
+  }
 
-      msg1.innerText = `Awww ${name}... kitna pyara naam hai 🥺💖`;
-      msg2.innerText = `Main kab se kehna chah raha tha...`;
-      msg3.innerText = `I think I really like you 🫣💗`;
-
-      setTimeout(() => msg1.classList.add("show"), 500);
-      setTimeout(() => msg2.classList.add("show"), 1800);
-      setTimeout(() => msg3.classList.add("show"), 3200);
-
-      createHearts();
-    }
-  </script>
-
+  // Generate hearts
+  const heartsContainer = document.getElementById("hearts");
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    heartsContainer.appendChild(heart);
+  }
+</script>
 </body>
 </html>
