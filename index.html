@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Duggubuggu 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <title>I Love You 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
       margin: 0;
@@ -15,151 +15,111 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      min-height: 100vh;
+      height: 100vh;
       overflow: hidden;
+    }
+
+    .start, .flower, .message {
       text-align: center;
-    }
-
-    .flower {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle, #ff9ac1, #ff3e7f);
-      border-radius: 50%;
-      box-shadow: 0 0 10px #ff8acb, 0 0 20px #ff58c0;
-      animation: floatFlower 10s infinite ease-in;
-    }
-
-    @keyframes floatFlower {
-      0% {
-        transform: translateY(100vh) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) scale(0.5);
-        opacity: 0;
-      }
-    }
-
-    .message {
-      font-size: 1.3rem;
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 1s ease;
-      margin: 15px 0;
+      transition: opacity 1s ease;
     }
 
     .visible {
       opacity: 1;
-      transform: translateY(0);
     }
 
-    .popup {
-      display: none;
-      background: #111;
-      color: #fff;
-      border: 2px solid #ff84c4;
-      padding: 20px;
-      border-radius: 15px;
-      margin-top: 30px;
-      box-shadow: 0 0 20px #ff84c4;
-      font-size: 1.2rem;
+    input, button, select {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      margin: 10px 5px;
+      outline: none;
     }
 
-    .share-btns a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      background: #fff;
-      color: #111;
-      border-radius: 30px;
-      text-decoration: none;
+    button {
+      background: #ff80ab;
+      color: #000;
+      cursor: pointer;
       font-weight: bold;
-      box-shadow: 0 0 10px #ff84c4;
-      transition: 0.3s;
+      box-shadow: 0 0 10px #ff80ab;
     }
 
-    .share-btns a:hover {
-      background: #ffb6d9;
+    .flower {
+      margin: 30px 0;
+    }
+
+    .petal {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #ff99cc, #ff66a3);
+      border-radius: 50% 50% 0 0;
+      transform-origin: bottom center;
+      animation: bloom 3s ease forwards;
+    }
+
+    .petal::after {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 50px;
+      background: green;
+      border-radius: 5px;
+    }
+
+    @keyframes bloom {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+      }
+    }
+
+    .message {
+      font-size: 1.8rem;
+      color: #ff9ecb;
+      text-shadow: 0 0 10px #ff9ecb;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="mainContent"></div>
-  <div class="popup" id="popup">You just made someone smile 🥺💖</div>
+  <div class="start visible" id="startSection">
+    <h2>Enter their name 💖</h2>
+    <input type="text" id="nameInput" placeholder="Type name here" />
+    <br>
+    <button onclick="showFlower()">Continue</button>
+  </div>
+
+  <div class="flower" id="flowerSection">
+    <div class="petal"></div>
+  </div>
+
+  <div class="message" id="finalMessage"></div>
 
   <script>
-    const name = new URLSearchParams(window.location.search).get("name");
-    const type = new URLSearchParams(window.location.search).get("type");
-    const main = document.getElementById("mainContent");
+    function showFlower() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) return alert("Please enter a name 🥺");
 
-    if (!name || !type) {
-      main.innerHTML = `
-        <h2>Create Your Romantic Surprise 💖</h2>
-        <input type="text" id="inputName" placeholder="Enter name" style="padding:10px; border-radius:10px; border:none; margin:5px;"/>
-        <select id="inputType" style="padding:10px; border-radius:10px; border:none;">
-          <option value="girl">Girl</option>
-          <option value="boy">Boy</option>
-        </select>
-        <br><br>
-        <button onclick="generateLink()" style="padding:10px 20px; background:#ff84c4; border:none; border-radius:25px; font-weight:bold; cursor:pointer; color:#111;">Generate 💌</button>
-        <div id="generatedLink" style="margin-top:20px;"></div>
-      `;
-    } else {
-      const messages = type === "girl"
-        ? [
-            `Aww ${name} 😍`,
-            `You're on my mind all the time 💭`,
-            `I really really like you 💖`
-          ]
-        : [
-            `Hey ${name} 😎`,
-            `You've stolen my heart secretly 💘`,
-            `I think... I'm falling for you 🥺💕`
-          ];
+      document.getElementById("startSection").classList.remove("visible");
 
-      main.innerHTML = `
-        <div class="message" id="msg1"></div>
-        <div class="message" id="msg2"></div>
-        <div class="message" id="msg3"></div>
-        <div class="share-btns" style="margin-top: 30px; display: none;" id="shareBtns">
-          <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-          <a href="https://wa.me/?text=${encodeURIComponent("Check this out 💖 https://your-site-url.netlify.app/?name=" + name + "&type=" + type)}" target="_blank">WhatsApp</a>
-          <a href="https://www.facebook.com/" target="_blank">Facebook</a>
-        </div>
-      `;
+      setTimeout(() => {
+        document.getElementById("flowerSection").classList.add("visible");
+      }, 500);
 
-      messages.forEach((msg, i) => {
-        setTimeout(() => {
-          document.getElementById("msg" + (i + 1)).innerText = msg;
-          document.getElementById("msg" + (i + 1)).classList.add("visible");
-          if (i === messages.length - 1) {
-            setTimeout(() => {
-              document.getElementById("popup").style.display = "block";
-              document.getElementById("shareBtns").style.display = "block";
-            }, 2000);
-          }
-        }, 1800 * (i + 1));
-      });
-    }
-
-    function generateLink() {
-      const nm = document.getElementById("inputName").value.trim();
-      const tp = document.getElementById("inputType").value;
-      if (!nm) return alert("Please enter a name!");
-      const link = `${window.location.origin + window.location.pathname}?name=${encodeURIComponent(nm)}&type=${tp}`;
-      document.getElementById("generatedLink").innerHTML = `<p>💌 Share this link:<br><a href="${link}" style="color:#ffb6d9">${link}</a></p>`;
-    }
-
-    // Floating Flower Generator
-    for (let i = 0; i < 30; i++) {
-      const flower = document.createElement("div");
-      flower.className = "flower";
-      flower.style.left = Math.random() * 100 + "vw";
-      flower.style.animationDuration = (4 + Math.random() * 6) + "s";
-      document.body.appendChild(flower);
+      setTimeout(() => {
+        document.getElementById("finalMessage").innerText = `I love you, ${name} 🥺💘`;
+        document.getElementById("finalMessage").classList.add("visible");
+      }, 3500); // after flower blooms
     }
   </script>
 </body>
 </html>
-/
