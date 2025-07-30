@@ -4,78 +4,114 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Download Spotify MOD - CODExHACK</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Roboto', sans-serif;
-      background-color: #121212;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: linear-gradient(135deg, #0f0f0f, #121212, #1b1b1b);
+      background-size: 400% 400%;
+      animation: bgMove 15s ease infinite;
+      color: #ffffff;
       text-align: center;
-      min-height: 100vh;
-      padding: 40px 20px;
+      padding: 50px 20px;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .logo {
-      font-size: 2.8em;
-      font-weight: bold;
+      font-size: 3em;
       color: #1DB954;
-      margin-bottom: 10px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      animation: fadeInDown 1s ease forwards;
     }
 
     .community {
+      margin-top: 10px;
+      color: #999;
       font-size: 1.1em;
-      color: #888;
-      margin-bottom: 30px;
+      animation: fadeInDown 1.2s ease forwards;
     }
 
     .promo-img {
       width: 90%;
       max-width: 380px;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(29, 185, 84, 0.4);
-      margin-bottom: 30px;
+      border-radius: 20px;
+      margin: 40px 0;
+      box-shadow: 0 10px 30px rgba(29, 185, 84, 0.2);
+      animation: fadeIn 1.5s ease forwards;
     }
 
     .tagline {
-      font-size: 1.3em;
-      margin-bottom: 15px;
-      color: #eee;
+      font-size: 1.4em;
+      margin-bottom: 30px;
+      color: #ffffff;
+      position: relative;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #1DB954; }
+      to { text-shadow: 0 0 20px #1DB954, 0 0 30px #1DB954; }
     }
 
     .download-btn {
-      background-color: #1DB954;
+      background: #1DB954;
       color: #000;
-      font-size: 1.2em;
-      padding: 14px 30px;
-      border: none;
-      border-radius: 50px;
-      text-decoration: none;
       font-weight: bold;
-      box-shadow: 0 4px 20px rgba(29, 185, 84, 0.5);
-      transition: background 0.3s ease;
+      font-size: 1.2em;
+      padding: 15px 40px;
+      border-radius: 40px;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 0 20px #1DB954;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
     }
 
     .download-btn:hover {
-      background-color: #17a44a;
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #1DB954;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px #1DB954; }
+      50% { box-shadow: 0 0 25px #1DB954; }
+      100% { box-shadow: 0 0 10px #1DB954; }
     }
 
     .footer {
-      margin-top: 40px;
+      margin-top: 50px;
       font-size: 0.9em;
       color: #777;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
   <div class="logo">Spootify</div>
-  <div class="community">MOD APK by CODExHACK</div>
+  <div class="community">Mod APK by CODExHACK</div>
 
   <img src="photo_5787153778217176791_y.jpg" alt="Spootify Promo" class="promo-img" />
 
@@ -84,7 +120,7 @@
   <a href="your-apk-link.apk" class="download-btn" download>📥 Download Now</a>
 
   <div class="footer">
-    Safe & Verified | Updated: July 30, 2025
+    🎧 Powered by CODExHACK | Safe & Clean | Updated: July 30, 2025
   </div>
 
 </body>
