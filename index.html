@@ -3,26 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Download Spotify MOD - CODExHACK</title>
+  <title>Download Spootify MOD - CODExHACK</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --green: #1DB954;
+      --bg1: #000000;
+      --bg2: #121212;
     }
 
     body {
+      margin: 0;
+      padding: 0;
       font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #121212, #1b1b1b);
-      background-size: 400% 400%;
-      animation: bgMove 15s ease infinite;
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      background-size: 200% 200%;
+      animation: bgShift 15s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      padding: 50px 20px;
+      min-height: 100vh;
+      padding: 40px 20px;
+      overflow-x: hidden;
     }
 
-    @keyframes bgMove {
+    @keyframes bgShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
@@ -30,97 +37,109 @@
 
     .logo {
       font-size: 3em;
-      color: #1DB954;
       font-weight: bold;
-      letter-spacing: 1px;
-      animation: fadeInDown 1s ease forwards;
+      color: var(--green);
+      opacity: 0;
+      animation: fadeDown 1s ease forwards;
     }
 
     .community {
-      margin-top: 10px;
-      color: #999;
       font-size: 1.1em;
-      animation: fadeInDown 1.2s ease forwards;
+      color: #bbb;
+      margin-top: 8px;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeDown 1.2s ease forwards;
     }
 
-    .promo-img {
-      width: 90%;
-      max-width: 380px;
-      border-radius: 20px;
-      margin: 40px 0;
-      box-shadow: 0 10px 30px rgba(29, 185, 84, 0.2);
-      animation: fadeIn 1.5s ease forwards;
+    .hero-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      box-shadow: 0 0 40px var(--green);
+      object-fit: cover;
+      margin-bottom: 30px;
+      transform: scale(0.8);
+      opacity: 0;
+      animation: zoomIn 1.5s ease forwards;
     }
 
     .tagline {
       font-size: 1.4em;
+      color: #eee;
       margin-bottom: 30px;
-      color: #ffffff;
-      position: relative;
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #1DB954; }
-      to { text-shadow: 0 0 20px #1DB954, 0 0 30px #1DB954; }
+      text-shadow: 0 0 10px var(--green);
+      opacity: 0;
+      animation: slideUp 1.7s ease forwards;
     }
 
     .download-btn {
-      background: #1DB954;
-      color: #000;
+      background-color: var(--green);
+      color: black;
       font-weight: bold;
-      font-size: 1.2em;
-      padding: 15px 40px;
+      font-size: 1.1em;
+      padding: 15px 35px;
       border-radius: 40px;
       text-decoration: none;
-      display: inline-block;
-      box-shadow: 0 0 20px #1DB954;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulse 2s infinite;
+      box-shadow: 0 0 20px var(--green);
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite ease-in-out, fadeIn 2s ease forwards;
     }
 
     .download-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 30px #1DB954;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 10px #1DB954; }
-      50% { box-shadow: 0 0 25px #1DB954; }
-      100% { box-shadow: 0 0 10px #1DB954; }
+      box-shadow: 0 0 30px var(--green);
     }
 
     .footer {
       margin-top: 50px;
-      font-size: 0.9em;
+      font-size: 0.85em;
       color: #777;
-      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+      animation: fadeIn 2.2s ease forwards;
+    }
+
+    /* Animations */
+    @keyframes fadeDown {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 15px var(--green); }
+      50% { box-shadow: 0 0 30px var(--green); }
+      100% { box-shadow: 0 0 15px var(--green); }
     }
   </style>
 </head>
 <body>
 
   <div class="logo">Spootify</div>
-  <div class="community">Mod APK by CODExHACK</div>
+  <div class="community">MOD by CODExHACK</div>
 
-  <img src="photo_5787153778217176791_y.jpg" alt="Spootify Promo" class="promo-img" />
+  <img src="photo_6075499530075358288_x.jpg" alt="Spootify Logo" class="hero-img" />
 
-  <div class="tagline">Listen Without Limits 🎧</div>
+  <div class="tagline">Listen to Premium Music Without Limits 🎧</div>
 
   <a href="your-apk-link.apk" class="download-btn" download>📥 Download Now</a>
 
   <div class="footer">
-    🎧 Powered by CODExHACK | Safe & Clean | Updated: July 30, 2025
+    ✅ Safe & Verified • Updated: July 30, 2025 • Powered by CODExHACK
   </div>
 
 </body>
