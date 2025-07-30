@@ -32,11 +32,6 @@
       50% { background-position: 100% 50%; }
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     @keyframes pulse {
       0%, 100% { box-shadow: 0 0 15px var(--green); }
       50% { box-shadow: 0 0 30px var(--green); }
@@ -80,14 +75,12 @@
     .logo {
       font-size: 3em;
       color: var(--green);
-      animation: fadeInUp 0.8s ease forwards;
     }
 
     .community {
       color: #bbb;
       font-size: 1em;
       margin-top: 5px;
-      animation: fadeInUp 1s ease forwards;
     }
 
     .hero-img {
@@ -97,7 +90,6 @@
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 0 30px var(--green);
-      animation: fadeInUp 1.2s ease forwards;
     }
 
     main {
@@ -107,11 +99,16 @@
       text-align: center;
     }
 
-    .tagline {
-      font-size: 1.4em;
-      margin-top: 20px;
-      color: #ddd;
-      text-shadow: 0 0 10px var(--green);
+    .tagline,
+    .download-btn {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
 
     .download-btn {
@@ -140,7 +137,6 @@
       padding: 25px;
       border-radius: 18px;
       box-shadow: 0 0 20px rgba(0,255,0,0.08);
-      animation: fadeInUp 1s ease forwards;
     }
 
     .section h2 {
@@ -175,18 +171,6 @@
       padding: 25px;
       font-size: 0.9em;
       color: #777;
-      animation: fadeInUp 1.5s ease forwards;
-    }
-
-    .hidden-init {
-      opacity: 0;
-      transform: translateY(60px);
-      transition: all 1s ease;
-    }
-
-    .fade-in-slide {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
     }
 
     @media (max-width: 600px) {
@@ -223,11 +207,13 @@
   </header>
 
   <main>
-    <div class="tagline hidden-init">
+    <div id="scroll-trigger" style="height: 20px;"></div>
+
+    <div class="tagline" id="tagline">
       Experience Premium Music for Free 🎶<br/>No Ads. No Limits. All Features Unlocked.
     </div>
 
-    <a href="your-spotify-mod.apk" class="download-btn hidden-init" download>📥 Download Now</a>
+    <a href="https://yourdomain.com/spotify-premium-mod.apk" class="download-btn" id="downloadBtn" download>📥 Download Now</a>
 
     <div class="section">
       <h2>🔥 Why Use This MOD?</h2>
@@ -262,31 +248,22 @@
 
   <script>
     const topBar = document.getElementById("topBar");
-    const downloadBtn = document.querySelector(".download-btn");
-    const description = document.querySelector(".tagline");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const tagline = document.getElementById("tagline");
+    const trigger = document.getElementById("scroll-trigger");
 
-    // Hide button & tagline initially
-    downloadBtn.classList.add("hidden-init");
-    description.classList.add("hidden-init");
-
-    // Scroll show animation using IntersectionObserver
-    const observerOptions = {
-      root: null,
-      threshold: 0.4
-    };
-
-    const revealOnScroll = (entries, observer) => {
+    // Scroll animation trigger
+    const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("fade-in-slide");
-          observer.unobserve(entry.target);
+          tagline.classList.add("visible");
+          downloadBtn.classList.add("visible");
+          observer.disconnect();
         }
       });
-    };
+    }, { threshold: 0.2 });
 
-    const observer = new IntersectionObserver(revealOnScroll, observerOptions);
-    observer.observe(description);
-    observer.observe(downloadBtn);
+    observer.observe(trigger);
 
     // Hide navbar on scroll down
     let lastScroll = 0;
