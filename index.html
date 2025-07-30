@@ -33,6 +33,11 @@
       50% { background-position: 100% 50%; }
     }
 
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 15px var(--green); }
+      50% { box-shadow: 0 0 30px var(--green); }
+    }
+
     .glass-top {
       position: fixed;
       top: 0;
@@ -92,7 +97,6 @@
       margin: 0 auto;
     }
 
-    /* Scroll Animation Hidden by default */
     .hidden {
       opacity: 0;
       transform: translateY(50px);
@@ -106,7 +110,6 @@
       pointer-events: auto;
     }
 
-    /* Glassmorphic Box */
     .glass-box {
       margin-top: 40px;
       padding: 30px;
@@ -147,9 +150,40 @@
       transform: scale(1.07);
     }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 15px var(--green); }
-      50% { box-shadow: 0 0 30px var(--green); }
+    .section {
+      margin-top: 60px;
+      padding: 25px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0,255,0,0.06);
+    }
+
+    .section h2 {
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .section p,
+    .features li {
+      color: #ccc;
+      font-size: 1em;
+      line-height: 1.6;
+    }
+
+    .features {
+      list-style: none;
+      padding-left: 0;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .features li::before {
+      content: "✔️ ";
+      color: var(--green);
+      margin-right: 6px;
     }
 
     footer {
@@ -181,29 +215,63 @@
   </header>
 
   <main>
-    <div class="glass-box hidden" id="downloadBox">
+    <!-- Glass Download Box -->
+    <div class="glass-box hidden" id="box-download">
       <h2>🎧 Download Spotify MOD</h2>
       <p>Enjoy premium music for free — no ads, no limits, full unlock.</p>
       <a href="https://t.me/SpotifyPremiumApkBot" class="download-btn">📥 Download via Telegram</a>
     </div>
+
+    <!-- Description Sections -->
+    <div class="section hidden" id="box-why">
+      <h2>🔥 Why Use This MOD?</h2>
+      <p>This isn't your average mod. Spotify MOD by CODExHACK delivers the ultimate music experience without ads, limits, or interruptions.</p>
+    </div>
+
+    <div class="section hidden" id="box-features">
+      <h2>✅ Features</h2>
+      <ul class="features">
+        <li>No Ads – 100% clean experience</li>
+        <li>Premium Unlocked – Skip, Search, Replay</li>
+        <li>High Quality Audio – 320kbps streaming</li>
+        <li>Dark Theme – Real Spotify look</li>
+        <li>No login required – Just install & enjoy</li>
+      </ul>
+    </div>
+
+    <div class="section hidden" id="box-install">
+      <h2>📦 How to Install?</h2>
+      <p>
+        1. Uninstall original Spotify<br/>
+        2. Visit Telegram bot: <b>@SpotifyPremiumApkBot</b><br/>
+        3. Download the MOD APK<br/>
+        4. Allow unknown sources and install
+      </p>
+    </div>
   </main>
 
   <footer>
-    ⚡ Updated: July 30, 2025 • Made with ❤️ by CODExHACK
+    ⚡ Updated: July 30, 2025 • Verified MOD • Made with ❤️ by CODExHACK
   </footer>
 
   <script>
-    const box = document.getElementById('downloadBox');
+    const elements = [
+      document.getElementById('box-download'),
+      document.getElementById('box-why'),
+      document.getElementById('box-features'),
+      document.getElementById('box-install')
+    ];
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          box.classList.add('visible');
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // animate once
         }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.3 });
 
-    observer.observe(box);
+    elements.forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
