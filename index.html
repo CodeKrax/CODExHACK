@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Spotify MOD - @SpotifyPremiumApkBot</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap" rel="stylesheet">
@@ -14,10 +14,11 @@
 
     * {
       box-sizing: border-box;
+      padding: 0;
+      margin: 0;
     }
 
     body {
-      margin: 0;
       font-family: 'Outfit', sans-serif;
       background: linear-gradient(135deg, var(--bg1), var(--bg2));
       background-size: 200% 200%;
@@ -43,33 +44,32 @@
       left: 0;
       width: 100%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       padding: 10px 20px;
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(12px);
-      z-index: 1000;
-      transition: top 0.4s ease;
+      z-index: 999;
     }
 
     .logo-name {
-      font-size: 1.3em;
       color: var(--green);
+      font-size: 1.2em;
       font-weight: bold;
       text-shadow: 0 0 10px var(--green);
     }
 
     .glass-top img {
-      width: 44px;
       height: 44px;
+      width: 44px;
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 0 15px var(--green);
     }
 
     header {
-      padding: 100px 20px 30px;
       text-align: center;
+      padding: 120px 20px 30px;
     }
 
     .logo {
@@ -79,14 +79,14 @@
 
     .community {
       color: #bbb;
-      font-size: 1em;
       margin-top: 5px;
+      font-size: 1em;
     }
 
     .hero-img {
       margin: 30px auto 0;
-      width: 220px;
-      height: 220px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 0 30px var(--green);
@@ -102,19 +102,28 @@
     .tagline,
     .download-btn {
       opacity: 0;
-      transform: translateY(60px);
-      transition: opacity 1s ease, transform 1s ease;
+      transform: translateY(50px);
+      pointer-events: none;
+      transition: all 1s ease;
     }
 
     .visible {
       opacity: 1 !important;
       transform: translateY(0) !important;
+      pointer-events: auto;
+    }
+
+    .tagline {
+      font-size: 1.4em;
+      color: #ddd;
+      margin-top: 20px;
+      text-shadow: 0 0 10px var(--green);
     }
 
     .download-btn {
       display: inline-block;
-      margin-top: 35px;
-      padding: 14px 32px;
+      margin-top: 30px;
+      padding: 15px 35px;
       background-color: var(--green);
       color: black;
       font-weight: bold;
@@ -123,20 +132,19 @@
       text-decoration: none;
       box-shadow: 0 0 20px var(--green);
       animation: pulse 2s infinite ease-in-out;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     .download-btn:hover {
       transform: scale(1.07);
-      box-shadow: 0 0 30px var(--green);
     }
 
     .section {
       background: #1c1c1c;
       margin-top: 60px;
       padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 0 20px rgba(0,255,0,0.08);
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,255,0,0.1);
     }
 
     .section h2 {
@@ -161,41 +169,39 @@
 
     .features li::before {
       content: "✔️ ";
-      color: var(--green);
       margin-right: 6px;
+      color: var(--green);
     }
 
     footer {
       text-align: center;
       margin-top: 60px;
-      padding: 25px;
+      padding: 20px;
       font-size: 0.9em;
       color: #777;
     }
 
     @media (max-width: 600px) {
       .logo {
-        font-size: 2.2em;
+        font-size: 2em;
       }
-
       .tagline {
         font-size: 1.1em;
       }
-
       .download-btn {
         padding: 12px 25px;
         font-size: 1em;
       }
-
       .hero-img {
-        width: 180px;
-        height: 180px;
+        width: 160px;
+        height: 160px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="glass-top" id="topBar">
+
+  <div class="glass-top">
     <div class="logo-name">@SpotifyPremiumApkBot</div>
     <img src="https://i.postimg.cc/ryPVdQ4t/photo-6077784353892583871-x.jpg" alt="Logo">
   </div>
@@ -207,28 +213,26 @@
   </header>
 
   <main>
-    <!-- Scroll trigger element -->
-    <div id="scroll-trigger" style="height: 10px;"></div>
-
-    <!-- Tagline and download button (hidden at first) -->
-    <div class="tagline" id="tagline">
+    <div class="tagline hidden" id="tagline">
       Experience Premium Music for Free 🎶<br/>No Ads. No Limits. All Features Unlocked.
     </div>
 
-    <a href="https://t.me/SpotifyPremiumApkBot" class="download-btn" id="downloadBtn">📥 Download via Telegram</a>
+    <a href="https://t.me/SpotifyPremiumApkBot" class="download-btn hidden" id="downloadBtn">
+      📥 Download Now
+    </a>
 
     <div class="section">
       <h2>🔥 Why Use This MOD?</h2>
-      <p>This isn't your average mod. Spotify MOD by CODExHACK delivers the ultimate music experience with no limitations or interruptions.</p>
+      <p>This isn't your average mod. Spotify MOD by CODExHACK delivers the ultimate music experience without ads, limits, or interruptions.</p>
     </div>
 
     <div class="section">
       <h2>✅ Features</h2>
       <ul class="features">
-        <li>No Ads – 100% clean experience</li>
-        <li>Premium Unlocked – Skip, Search, Replay everything</li>
-        <li>High Quality Audio – 320kbps streaming</li>
-        <li>Dark Theme – Real Spotify look</li>
+        <li>No Ads – clean uninterrupted experience</li>
+        <li>Premium Unlocked – Skip, Search, Replay</li>
+        <li>High Quality Audio – 320kbps Streaming</li>
+        <li>Dark Theme – Real Spotify feel</li>
         <li>No login required – Just install & enjoy</li>
       </ul>
     </div>
@@ -237,9 +241,9 @@
       <h2>📦 How to Install?</h2>
       <p>
         1. Uninstall original Spotify<br/>
-        2. Go to Telegram bot → @SpotifyPremiumApkBot<br/>
-        3. Download MOD APK<br/>
-        4. Allow unknown sources → install & enjoy!
+        2. Visit Telegram bot: <b>@SpotifyPremiumApkBot</b><br/>
+        3. Download the MOD APK<br/>
+        4. Allow unknown sources and install
       </p>
     </div>
   </main>
@@ -249,37 +253,18 @@
   </footer>
 
   <script>
-    const topBar = document.getElementById("topBar");
     const downloadBtn = document.getElementById("downloadBtn");
     const tagline = document.getElementById("tagline");
-    const trigger = document.getElementById("scroll-trigger");
 
-    // Initial hidden
-    downloadBtn.classList.remove("visible");
-    tagline.classList.remove("visible");
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 100) {
+        downloadBtn.classList.add("visible");
+        downloadBtn.classList.remove("hidden");
 
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          tagline.classList.add("visible");
-          downloadBtn.classList.add("visible");
-          observer.disconnect(); // only once
-        }
-      });
-    }, { threshold: 0.1 });
-
-    observer.observe(trigger);
-
-    // Navbar hide on scroll down
-    let lastScroll = 0;
-    window.addEventListener("scroll", () => {
-      const current = window.scrollY;
-      if (current > lastScroll) {
-        topBar.style.top = "-80px";
-      } else {
-        topBar.style.top = "0";
+        tagline.classList.add("visible");
+        tagline.classList.remove("hidden");
       }
-      lastScroll = current;
     });
   </script>
 </body>
