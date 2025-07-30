@@ -112,7 +112,6 @@
       margin-top: 20px;
       color: #ddd;
       text-shadow: 0 0 10px var(--green);
-      animation: fadeInUp 1.4s ease forwards;
     }
 
     .download-btn {
@@ -126,7 +125,7 @@
       border-radius: 40px;
       text-decoration: none;
       box-shadow: 0 0 20px var(--green);
-      animation: pulse 2s infinite ease-in-out, fadeInUp 1.6s ease forwards;
+      animation: pulse 2s infinite ease-in-out;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -179,6 +178,17 @@
       animation: fadeInUp 1.5s ease forwards;
     }
 
+    .hidden-init {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s ease;
+    }
+
+    .fade-in-slide {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
     @media (max-width: 600px) {
       .logo {
         font-size: 2.2em;
@@ -213,11 +223,11 @@
   </header>
 
   <main>
-    <div class="tagline">
+    <div class="tagline hidden-init">
       Experience Premium Music for Free 🎶<br/>No Ads. No Limits. All Features Unlocked.
     </div>
 
-    <a href="your-spotify-mod.apk" class="download-btn" download>📥 Download Now</a>
+    <a href="your-spotify-mod.apk" class="download-btn hidden-init" download>📥 Download Now</a>
 
     <div class="section">
       <h2>🔥 Why Use This MOD?</h2>
@@ -253,18 +263,39 @@
   <script>
     const topBar = document.getElementById("topBar");
     const downloadBtn = document.querySelector(".download-btn");
-    let lastScroll = 0;
+    const description = document.querySelector(".tagline");
 
+    // Hide button & tagline initially
+    downloadBtn.classList.add("hidden-init");
+    description.classList.add("hidden-init");
+
+    // Scroll show animation using IntersectionObserver
+    const observerOptions = {
+      root: null,
+      threshold: 0.4
+    };
+
+    const revealOnScroll = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-in-slide");
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(revealOnScroll, observerOptions);
+    observer.observe(description);
+    observer.observe(downloadBtn);
+
+    // Hide navbar on scroll down
+    let lastScroll = 0;
     window.addEventListener("scroll", () => {
       const current = window.scrollY;
       if (current > lastScroll) {
         topBar.style.top = "-80px";
-        downloadBtn.style.opacity = "0";
-        downloadBtn.style.transform = "translateY(40px)";
       } else {
         topBar.style.top = "0";
-        downloadBtn.style.opacity = "1";
-        downloadBtn.style.transform = "translateY(0)";
       }
       lastScroll = current;
     });
