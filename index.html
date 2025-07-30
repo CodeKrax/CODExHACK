@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spotify MOD - CODExHACK</title>
-
+  <title>Spootify MOD - CODExHACK</title>
+  
   <!-- Inter Bold Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
-
-  <!-- AOS Scroll Animation -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
     :root {
@@ -43,7 +43,6 @@
     .logo {
       font-size: 3em;
       color: var(--green);
-      font-weight: 700;
     }
 
     .community {
@@ -59,6 +58,8 @@
       height: 180px;
       border-radius: 50%;
       box-shadow: 0 0 30px var(--green);
+      object-fit: cover;
+      overflow: hidden;
     }
 
     main {
@@ -73,7 +74,6 @@
       margin-top: 20px;
       color: #ddd;
       text-shadow: 0 0 10px var(--green);
-      font-weight: 600;
     }
 
     .download-btn {
@@ -87,7 +87,7 @@
       border-radius: 40px;
       text-decoration: none;
       box-shadow: 0 0 20px var(--green);
-      transition: all 0.3s ease;
+      transition: 0.3s ease;
     }
 
     .download-btn:hover {
@@ -106,7 +106,6 @@
     .section h2 {
       color: var(--green);
       margin-bottom: 10px;
-      font-weight: 600;
     }
 
     .section p {
@@ -124,7 +123,6 @@
     .features li {
       margin-bottom: 10px;
       color: #aaa;
-      font-size: 1em;
     }
 
     footer {
@@ -139,7 +137,7 @@
 <body>
 
   <header data-aos="fade-down">
-    <div class="logo">Spotify</div>
+    <div class="logo">Spootify</div>
     <div class="community">MOD by CODExHACK</div>
     <img src="https://i.postimg.cc/Hnz2jqrF/photo-6075499530075358288-x.jpg" alt="Spootify Icon" class="hero-img" />
   </header>
@@ -149,7 +147,7 @@
       Experience Premium Music for Free 🎶<br/> No Ads. No Limits. All Features Unlocked.
     </div>
 
-    <a href="https://t.me/SpotifyPremiumApkBot" class="download-btn" data-aos="zoom-in">📥 Download via Telegram</a>
+    <a href="https://t.me/SpotifyPremiumApkBot" class="download-btn" data-aos="zoom-in">📥 Download Now</a>
 
     <div class="section" data-aos="fade-up">
       <h2>🔥 Why Use This MOD?</h2>
@@ -178,12 +176,18 @@
     </div>
   </main>
 
-  <footer data-aos="fade-in">
+  <footer data-aos="fade-up">
     ⚡ Updated: July 30, 2025 • Verified MOD • Made with ❤️ by CODExHACK
   </footer>
 
-  <!-- AOS Scripts -->
+  <!-- AOS Animation Script -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init({ once: true });</script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
+  </script>
+
 </body>
 </html>
