@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spotify MOD - CODExHACK</title>
+  <title>Spotify MOD - @SpotifyPremiumApkBot</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -196,7 +196,7 @@
 </head>
 <body>
   <div class="glass-top" id="topBar">
-    <div class="logo-name">CODExHACK</div>
+    <div class="logo-name">@SpotifyPremiumApkBot</div>
     <img src="https://i.postimg.cc/ryPVdQ4t/photo-6077784353892583871-x.jpg" alt="Logo">
   </div>
 
@@ -207,13 +207,15 @@
   </header>
 
   <main>
-    <div id="scroll-trigger" style="height: 20px;"></div>
+    <!-- Scroll trigger element -->
+    <div id="scroll-trigger" style="height: 10px;"></div>
 
+    <!-- Tagline and download button (hidden at first) -->
     <div class="tagline" id="tagline">
       Experience Premium Music for Free 🎶<br/>No Ads. No Limits. All Features Unlocked.
     </div>
 
-    <a href="https://yourdomain.com/spotify-premium-mod.apk" class="download-btn" id="downloadBtn" download>📥 Download Now</a>
+    <a href="https://t.me/SpotifyPremiumApkBot" class="download-btn" id="downloadBtn">📥 Download via Telegram</a>
 
     <div class="section">
       <h2>🔥 Why Use This MOD?</h2>
@@ -235,9 +237,9 @@
       <h2>📦 How to Install?</h2>
       <p>
         1. Uninstall original Spotify<br/>
-        2. Download the MOD APK above<br/>
-        3. Enable unknown sources in settings<br/>
-        4. Install and enjoy unlimited music!
+        2. Go to Telegram bot → @SpotifyPremiumApkBot<br/>
+        3. Download MOD APK<br/>
+        4. Allow unknown sources → install & enjoy!
       </p>
     </div>
   </main>
@@ -252,20 +254,23 @@
     const tagline = document.getElementById("tagline");
     const trigger = document.getElementById("scroll-trigger");
 
-    // Scroll animation trigger
+    // Initial hidden
+    downloadBtn.classList.remove("visible");
+    tagline.classList.remove("visible");
+
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           tagline.classList.add("visible");
           downloadBtn.classList.add("visible");
-          observer.disconnect();
+          observer.disconnect(); // only once
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1 });
 
     observer.observe(trigger);
 
-    // Hide navbar on scroll down
+    // Navbar hide on scroll down
     let lastScroll = 0;
     window.addEventListener("scroll", () => {
       const current = window.scrollY;
